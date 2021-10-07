@@ -9,6 +9,9 @@ gen/
 build/
 out/
 node_modules/
+.classpath
+.project
+.settings
 
 .gradle/
 gradle-app.setting
