@@ -1,113 +1,47 @@
 package Datenbanken;
 
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 
 public class EasyAccess {
-    private String host;
-    private String user;
-    private String password;
-    private String database;
-    private String command;
-    private Connection dbConnection;
-    private Statement sqlStatement;
-    private ResultSet resultSet;
 
-    public EasyAccess(String host, String database, String user, String password){
-        final String DRIVER = "";// INSERT DRIVER HERE!!!!!!!!!!!!!!!!!!!!
+    private Connection connection;
 
-        this.host = host;
-        this.database = database;
-        this.user = user;
-        this.password = password;
-
+    public EasyAccess(String user, String password){
         try {
-            Class.forName(DRIVER);//Beim Laden der Treiberklasse, registriert diese sich beim Treibermanager.
+            Class.forName("org.hsqldb.jdbcDriver");
+            connection = DriverManager.getConnection("jdbc:hsqldb:file:C:/jbb/base.db;shutdown=true", user, password);
         }
-        catch (ClassNotFoundException e){
+        catch (ClassNotFoundException | SQLException e){
             System.out.println("Treiber nicht gefunden" + e.toString());
+            System.err.println("Keine Treiberklasse gefunden.");
         }
     }
 
-    public boolean openConnection(){
-        String url = host + "/" + database;
-        boolean connected = false;
-
-        try{
-            dbConnection = DriverManager.getConnection(url,user,password);
-            connected = true;
-        }
-        catch (SQLException e){
-            System.out.println("Verbindung fehlgeschlagen!");
-            System.out.println(e.toString());
-        }
-        return connected;
-    }
-
-    public void closeConnection(){
-        if (resultSet != null){
-            try {
-                resultSet.close();
-            }
-            catch (SQLException e){
-                System.out.println("Die belegten Ressourcen konnten nicht freigegeben werden!");
-                System.out.println(e.toString());
-            }
-        }
-
-        if (sqlStatement != null){
-            try {
-                sqlStatement.close();
-            }
-            catch (SQLException e){
-                System.out.println("Die belegten Ressourcen konnten nicht freigegeben werden!");
-                System.out.println(e.toString());
-            }
-        }
-
-        if (dbConnection != null){
-            try {
-                dbConnection.close();
-            }
-            catch (SQLException e){
-                System.out.println("Die belegten Ressourcen konnten nicht freigegeben werden!");
-                System.out.println(e.toString());
-            }
-        }
-    }
-
-    public ResultSet executeQuery(String pSql){
-       ResultSet resultSet = null;
-
-       try {
-           sqlStatement =dbConnection.createStatement();
-           resultSet = sqlStatement.executeQuery(pSql);
-           this.resultSet = resultSet;
-       }
-       catch (SQLException e){
-           System.out.println("Datenbank-Abfrage fehlgeschlagen: " + e.toString());
-           System.out.println("SQL-Anweisung: " + pSql);
-       }
-       return resultSet;
-    }
-
-    public boolean executeUpdate(String pSql){
-        boolean executed = false;
-
+    public void updateDatabase(String statement){
         try {
-            sqlStatement = dbConnection.createStatement();
-            sqlStatement.executeUpdate(pSql);
-            executed = true;
+            PreparedStatement prepared = connection.prepareStatement(statement);
+            prepared.executeUpdate();
+            prepared.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
-        catch (SQLException e){
-            System.out.println("Datenbank-Aktualisierung fehlgeschlagen: " + e.toString());
-            System.out.println("SQL-Anweisung: " + pSql);
+        try{
+            connection.commit();
+        }catch (SQLException ex){
+            ex.printStackTrace();
         }
-
-        return executed;
     }
+
+    public ResultSet queryDatabase(String statement){
+        ResultSet set = null;
+        try{
+            PreparedStatement prepared = connection.prepareStatement(statement);
+            set = prepared.executeQuery();
+            prepared.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return set;
+    }
+
 }

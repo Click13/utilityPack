@@ -12,7 +12,6 @@
          <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
          <maven.compiler.source>1.7</maven.compiler.source>
          <maven.compiler.target>1.7</maven.compiler.target>
-         <scope>test</scope>
        </properties>
      
        <dependencies>
@@ -21,10 +20,11 @@
                <artifactId>junit</artifactId>
                <version>4.13.2</version>
            </dependency>
-      </dependencies>
-     
-      <build>
-        <pluginManagement>
-        </pluginManagement>
-      </build>
+
+           <dependency>
+               <groupId>org.hsqldb</groupId>
+               <artifactId>hsqldb</artifactId>
+               <version>2.6.1</version>
+           </dependency>
+       </dependencies>
 </project>
