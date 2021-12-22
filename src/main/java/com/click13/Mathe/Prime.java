@@ -1,4 +1,4 @@
-package Mathe;
+package com.click13.Mathe;
 
 public class Prime {
     public static boolean isPrimeNumber(int number){

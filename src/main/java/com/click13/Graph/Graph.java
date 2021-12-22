@@ -1,4 +1,4 @@
-package Graph;
+package com.click13.Graph;
 
 import java.util.LinkedList;
 

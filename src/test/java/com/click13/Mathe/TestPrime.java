@@ -1,10 +1,11 @@
-package Mathe;
+package com.click13.Mathe;
 
-import static Mathe.Prime.isPrimeNumber;
+import static com.click13.Mathe.Prime.isPrimeNumber;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 
 public class TestPrime {

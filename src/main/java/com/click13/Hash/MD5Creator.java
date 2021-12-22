@@ -1,4 +1,4 @@
-package Hash;
+package com.click13.Hash;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

@@ -1,4 +1,4 @@
-package Mathe;
+package com.click13.Mathe;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

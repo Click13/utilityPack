@@ -1,4 +1,4 @@
-package Graph;
+package com.click13.Graph;
 
 public class Queue {
     private class Item{

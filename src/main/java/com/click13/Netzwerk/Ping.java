@@ -1,4 +1,4 @@
-package Netzwerk;
+package com.click13.Netzwerk;
 
 import java.io.IOException;
 import java.net.InetAddress;

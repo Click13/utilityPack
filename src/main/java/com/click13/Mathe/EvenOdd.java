@@ -1,4 +1,4 @@
-package Mathe;
+package com.click13.Mathe;
 
 public class EvenOdd {
 

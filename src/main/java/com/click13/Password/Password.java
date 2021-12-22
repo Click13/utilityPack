@@ -1,4 +1,4 @@
-package Password;
+package com.click13.Password;
 
 public class Password {
     

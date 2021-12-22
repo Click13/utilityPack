@@ -1,4 +1,4 @@
-package Patterns;
+package com.click13.Patterns;
 
 public final class Immutable {
     private final int monat;

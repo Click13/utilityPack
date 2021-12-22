@@ -1,4 +1,4 @@
-package Patterns;
+package com.click13.Patterns;
 
 public class Singelton {
     private static Singelton instanz = null;

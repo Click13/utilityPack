@@ -1,4 +1,4 @@
-package Datenbanken;
+package com.click13.Datenbanken;
 
 import java.sql.*;
 

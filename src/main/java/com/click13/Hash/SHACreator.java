@@ -1,4 +1,4 @@
-package Hash;
+package com.click13.Hash;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;

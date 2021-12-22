@@ -1,4 +1,4 @@
-package Graph;
+package com.click13.Graph;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
