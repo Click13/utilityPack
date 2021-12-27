@@ -4,10 +4,10 @@ import java.sql.*;
 
 public class EasyAccess {
 
-    private static EasyAccess instanz = null;
-    private Connection connection;
-    private String user;
-    private String password;
+    private static volatile EasyAccess instanz = null;
+    private volatile Connection connection;
+    private volatile String user;
+    private volatile String password;
 
     private EasyAccess(String user, String password){
         try {
@@ -71,7 +71,7 @@ public class EasyAccess {
         instanz = null;
     }
 
-    public static synchronized EasyAccess getInstanz(String user, String password){
+    public static synchronized EasyAccess getInstanz(String user, String password) throws NullPointerException{
         if (instanz == null){
             instanz = new EasyAccess(user, password);
             return instanz;
@@ -81,7 +81,7 @@ public class EasyAccess {
                 return instanz;
             }
             else{
-                return null;
+                throw new NullPointerException();
             }
         }
     }

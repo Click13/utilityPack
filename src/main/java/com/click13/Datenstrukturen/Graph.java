@@ -1,12 +1,10 @@
 package com.click13.Datenstrukturen;
 
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.LinkedList;
 
 public class Graph<E>{
 
-    private class Node<E>{
+    private static class Node<E>{
         private E content;
         private LinkedList<Node<E>> connectedNodes;
 
@@ -21,6 +19,10 @@ public class Graph<E>{
 
         public void addConnectedNode(Node<E> newNode){
             connectedNodes.add(newNode);
+        }
+
+        public void removeConnectedNode(Node<E> node){
+            connectedNodes.remove(node);
         }
 
         public LinkedList<Node<E>> getConnectedNodes(){
@@ -69,7 +71,9 @@ public class Graph<E>{
     }
 
     public boolean contains(E e) {
-        return false;
+        Node<E> tmp = new Node<>();
+        tmp.setContent(e);
+        return nodes.contains(tmp);
     }
 
     public boolean add(E e) {
@@ -78,12 +82,50 @@ public class Graph<E>{
         return nodes.add(tmp);
     }
 
-    public boolean remove(E e) {//TODO
+    public boolean remove(E e) {
         Node<E> tmp = new Node<>();
+        tmp.setContent(e);
         return nodes.remove(tmp);
     }
 
     public void clear() {
         nodes.clear();
+    }
+
+    public boolean addEdge(E e,E a){
+        Node<E> t1 = new Node<>();
+        t1.setContent(e);
+        Node<E> t2 = new Node<>();
+        t2.setContent(a);
+        if (nodes.contains(t1) && nodes.contains(t2)){
+            Node<E> n1 = nodes.get(nodes.indexOf(t1));
+            Node<E> n2 = nodes.get(nodes.indexOf(t2));
+            n1.addConnectedNode(n2);
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public boolean removeEdge(E e, E a){
+        Node<E> t1 = new Node<>();
+        t1.setContent(e);
+        Node<E> t2 = new Node<>();
+        t2.setContent(a);
+        if (nodes.contains(t1) && nodes.contains(t2)){
+            Node<E> n1 = nodes.get(nodes.indexOf(t1));
+            Node<E> n2 = nodes.get(nodes.indexOf(t2));
+            if (!n1.hasConnectedNodes()){
+                return false;
+            }
+            else{
+                n1.removeConnectedNode(n2);
+                return true;
+            }
+        }
+        else{
+            return false;
+        }
     }
 }

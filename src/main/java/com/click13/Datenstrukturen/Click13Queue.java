@@ -1,10 +1,11 @@
 package com.click13.Datenstrukturen;
 
+import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class Click13Queue<E>{
 
-    private class Node<E>{
+    private static class Node<E>{
         private E content;
         private Node<E> nextNode;
 
@@ -34,7 +35,7 @@ public class Click13Queue<E>{
         }
     }
 
-    private Node <E>head;
+    private Node <E> head;
     private int size;
 
     public Click13Queue(){
@@ -76,38 +77,19 @@ public class Click13Queue<E>{
         }
     }
 
-    public boolean offer(E e) throws ClassCastException, NullPointerException{
+    public boolean offer(E e) throws ClassCastException, NullPointerException, IllegalStateException{
         if (e == null){
             throw new NullPointerException();
         }
         if (!(e instanceof E)){
             throw new ClassCastException();
         }
-        return add(e);
-    }
-
-    public E poll() {
-        if (isEmpty()){
-            return null;
+        try {
+            return add(e);
         }
-        Node<E> tmp = head;
-        head = head.getNextNode();
-        size--;
-        return tmp.getContent();
-    }
-
-    public E element() {
-        if (isEmpty()){
-            throw new NoSuchElementException();
+        catch (IllegalStateException illegalStateException){
+            throw new IllegalStateException(illegalStateException);
         }
-        return head.getContent();
-    }
-
-    public E peek() {
-        if (isEmpty()){
-            return null;
-        }
-        return head.getContent();
     }
 
     public int size() {
@@ -126,5 +108,30 @@ public class Click13Queue<E>{
     public void clear() {
         head = null;
         size = 0;
+    }
+
+    public Iterator<E> getIterator(){
+        return new Iterator<E>() {
+            @Override
+            public boolean hasNext() {
+                return !isEmpty();
+            }
+
+            @Override
+            public E next() {
+                try{
+                    return getNext();
+                }
+                catch(NullPointerException nullPointerException){}
+                return null;
+            }
+        };
+    }
+
+    private E getNext() throws NullPointerException{
+        if (head == null){
+            throw new NullPointerException();
+        }
+        return remove();
     }
 }
