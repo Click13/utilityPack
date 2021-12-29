@@ -5,6 +5,9 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class SHACreator {
+
+    private SHACreator(){}
+
     public static String getSHAValue_SHA_512(String text){
         try{
             MessageDigest digest = MessageDigest.getInstance("SHA-512");
