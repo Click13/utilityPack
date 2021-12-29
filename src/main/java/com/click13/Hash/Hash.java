@@ -5,6 +5,9 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class Hash {
+
+    private Hash(){}
+
     public static String getSHAValue_SHA_512(String text, HashingAlgorithms algorithm){
         try{
             MessageDigest digest = MessageDigest.getInstance(algorithm.name());
