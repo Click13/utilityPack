@@ -1,5 +1,7 @@
 package com.click13.Datenstrukturen;
 
+import org.jetbrains.annotations.Contract;
+
 import java.util.LinkedList;
 
 public class Graph<E>{

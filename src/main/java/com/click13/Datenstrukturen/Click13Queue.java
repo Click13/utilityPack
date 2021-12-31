@@ -79,7 +79,7 @@ public class Click13Queue<E>{
 
     public boolean offer(E e) throws ClassCastException, NullPointerException, IllegalStateException{
         if (e == null){
-            throw new NullPointerException();
+            throw new NullPointerException("NULL is not allowed here!");
         }
         if (!(e instanceof E)){
             throw new ClassCastException();
